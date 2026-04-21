@@ -5,7 +5,7 @@
 
 ## 🔍 Project Overview
 
-This project applies **Pareto (80/20) segmentation** to 80,000+ simulated B2B industrial transaction records to identify high-value customer accounts, build a validated pricing model, and deliver an operational KPI dashboard — mirroring the kind of data-driven decision support used in clinical supply chain operations.
+This project applies **Pareto (80/20) segmentation** to 80,000+ simulated B2B industrial transaction records to identify high-value customer accounts, build a validated pricing model, and deliver an operational KPI dashboard - mirroring the kind of data-driven decision support used in clinical supply chain operations.
 
 The project demonstrates end-to-end data analytics engineering: from raw data ingestion and cleaning, through SQL-based segmentation and statistical modeling, to a Power BI dashboard that reduces manual reporting time and enables proactive decision-making.
 
@@ -100,7 +100,7 @@ python powerbi_export.py
 ### Hypothesis Testing
 - **One-way ANOVA** across 4 revenue segments
 - F-statistic: 286.72 | p-value: ~0.0
-- ✅ Rejected H0 - revenue differences across segments are statistically significant
+- Rejected H0 - revenue differences across segments are statistically significant
 
 ### Visualization & Reporting
 - **Pareto chart** - dual-axis (bar: revenue per customer, line: cumulative %)
