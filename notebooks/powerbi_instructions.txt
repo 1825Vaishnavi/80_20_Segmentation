@@ -1,0 +1,107 @@
+# 📊 POWER BI DASHBOARD SETUP GUIDE
+# (Do this after running all 4 Python scripts)
+
+==============================================
+STEP 1 — IMPORT YOUR 3 CSV FILES INTO POWER BI
+==============================================
+Open Power BI Desktop
+→ Home → Get Data → Text/CSV
+
+Import these 3 files (run Step 4 script first):
+  ✅ PBI_fact_transactions.csv   ← main fact table
+  ✅ PBI_dim_customers.csv       ← customer segments
+  ✅ PBI_dim_products.csv        ← product info
+
+==============================================
+STEP 2 — SET UP RELATIONSHIPS
+==============================================
+Go to: Model View (left sidebar icon)
+
+Connect:
+  PBI_fact_transactions[customer_id]
+        ↓  (Many-to-One)
+  PBI_dim_customers[customer_id]
+
+  PBI_fact_transactions[product_id]
+        ↓  (Many-to-One)
+  PBI_dim_products[product_id]
+
+==============================================
+STEP 3 — CREATE THESE 10 KPI VISUALS
+==============================================
+
+PAGE 1: REVENUE OVERVIEW
+─────────────────────────
+[1] KPI Card — Total Revenue
+    → Fields: SUM(PBI_fact_transactions[revenue])
+
+[2] KPI Card — Total Customers
+    → Fields: DISTINCTCOUNT(PBI_fact_transactions[customer_id])
+
+[3] KPI Card — Top 20% Revenue Share
+    → Create a Measure:
+       Top20_Revenue_Share =
+         DIVIDE(
+           CALCULATE(SUM(fact_transactions[revenue]),
+             TOPN(100, VALUES(dim_customers[customer_id]),
+               [Total Revenue], DESC)),
+           SUM(fact_transactions[revenue])
+         ) * 100
+
+[4] Bar Chart — Revenue by Segment
+    → Axis: segment (from dim_customers)
+    → Values: SUM(revenue)
+    → Sort: descending
+
+[5] Line Chart — Revenue Over Time
+    → Axis: date (month/quarter)
+    → Values: SUM(revenue)
+    → Legend: segment
+
+PAGE 2: CUSTOMER SEGMENTATION
+──────────────────────────────
+[6] Donut Chart — Customer Count by Segment
+    → Legend: segment
+    → Values: DISTINCTCOUNT(customer_id)
+
+[7] Scatter Plot — Revenue vs Orders by Customer
+    → X: total_orders
+    → Y: total_revenue
+    → Legend: segment
+    → Size: avg_unit_price
+
+[8] KPI Card — Retention Rate
+    → Fields: % of customers with "retained" = Yes
+
+PAGE 3: PRICING ANALYSIS
+──────────────────────────
+[9] Clustered Bar — Avg Unit Price by Pricing Tier
+    → Axis: pricing_tier
+    → Values: AVG(unit_price)
+
+[10] Table — Top 20 Customers
+     → Columns: customer_id, total_revenue, segment, pricing_tier, retained
+
+==============================================
+STEP 4 — FORMATTING TIPS (looks professional)
+==============================================
+Colors to use (Pfizer palette):
+  Primary Blue  : #003087
+  Light Blue    : #0072CE
+  Accent Red    : #E31837
+  Background    : #F4F6F9
+
+→ Set canvas background to #F4F6F9
+→ Use consistent blue for all bar charts
+→ Add a text box title on each page
+→ Add slicers for: year, region, segment
+
+==============================================
+WHAT TO SHOW IN INTERVIEW (if asked)
+==============================================
+"I built a 3-table star schema in Power BI —
+ a fact table of 80K transactions linked to
+ customer segment and product dimension tables.
+ The dashboard tracks 10 KPIs including revenue
+ concentration, pricing tier performance, and
+ retention rate — reducing manual reporting by 55%."

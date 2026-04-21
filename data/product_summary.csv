@@ -1,0 +1,6 @@
+product_id,product_category,total_orders,total_revenue,avg_price
+PROD_E,Precision Instruments,16005,120228730.84,300.02
+PROD_C,Specialty Chemicals,15965,80619878.22,199.93
+PROD_A,Industrial Equipment,15942,47834273.91,120.07
+PROD_D,Safety Supplies,16010,30153175.67,75.03
+PROD_B,Consumables,16078,18131190.69,44.99
